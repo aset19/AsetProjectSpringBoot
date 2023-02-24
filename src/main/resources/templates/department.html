@@ -22,20 +22,20 @@
                 <thead>
                 <tr>
                     <th >ID</th>
-                    <th >Departments</th>
-                    <th >Details</th>
+                    <th >Департамент</th>
+                    <th >Описание</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each = "dep:${allDepartments}">
                     <td th:text = "${dep.id}"></td>
                     <td th:text = "${dep.departmentName}"></td>
-                    <td><a class="btn btn-info btn-sm" th:href="@{'/department/create/' + ${dep.id}}" > CREATE</a></td>
+                    <td><a class="btn btn-info btn-sm" th:href="@{'/department/create/' + ${dep.id}}" >Редактировать</a></td>
                 </tr>
 
                 </tbody>
             </table>
-            <a class="btn btn-primary" th:href="@{'/department/add'}" role="button" > ADD</a>
+            <a class="btn btn-primary" th:href="@{'/department/add'}" role="button" >Добавить</a>
         </div>
     </div>
 </div>

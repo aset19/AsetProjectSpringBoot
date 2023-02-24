@@ -22,19 +22,19 @@
                 <thead>
                 <tr>
                     <th >ID</th>
-                    <th >Position</th>
-                    <th>Details</th>
+                    <th >Должность</th>
+                    <th>Описание</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each = "pos:${positions}">
                     <td th:text = "${pos.id}"></td>
                     <td th:text = "${pos.positionName}"></td>
-                    <td><a class="btn btn-info btn-sm" th:href="@{'/positions/create/' + ${pos.id}}" > CREATE</a></td>
+                    <td><a class="btn btn-info btn-sm" th:href="@{'/positions/create/' + ${pos.id}}" > Редактировать</a></td>
                 </tr>
                 </tbody>
             </table>
-            <a  class="btn btn-primary" th:href="@{'/positions/add'}" role="button" > ADD</a>
+            <a  class="btn btn-primary" th:href="@{'/positions/add'}" role="button" >Добавить</a>
         </div>
     </div>
 </div>
