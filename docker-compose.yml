@@ -1,0 +1,16 @@
+version: '2.4'
+
+services:
+  db:
+    image: mysql
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: aset_spring_project
+      MYSQL_ROOT_HOST: root
+      MYSQL_ROOT_PASSWORD: root
+  app:
+    build: ./
+    container_name: "asetProject"
+    ports:
+      - 8080:8080
