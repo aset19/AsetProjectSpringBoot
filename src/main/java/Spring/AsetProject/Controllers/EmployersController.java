@@ -34,7 +34,7 @@ public class EmployersController {
     private ServiceLog serviceLog;
 
 
-    public static String photoPath = System.getProperty("user.dir") + "/src/main/resources/static/img";
+    public static String photoPath = System.getProperty("user.dir") + "/src/main/resources/static";
 
     //получим список всех сотруднков с их данными
     @GetMapping
@@ -117,7 +117,6 @@ public class EmployersController {
            } catch (IOException e) {
                e.printStackTrace();
            }
-
            serviceLog.addEmployer(employers);
        }
 
@@ -210,9 +209,6 @@ public class EmployersController {
                 .headers(headers)
                 .body(new InputStreamResource(in));
     }
-
-
-
 
 
 }

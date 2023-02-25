@@ -21,6 +21,9 @@ public interface ServiceLog {
 
 
 
+
+
+
     Department addDepartment(Department department);
     Department getDepartment(Long id);
     List<Department> getAllDepartments();

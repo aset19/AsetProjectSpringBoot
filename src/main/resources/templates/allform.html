@@ -19,12 +19,16 @@
           <a class="dropdown-item" th:href="@{'/department'}">Департамент</a>
         </div>
       <li class="nav-item dropdown">
-        <a class="nav-link" href="?lng=ru">RU</a>
+        <a class="nav-link" th:href="@{'?lng=ru'}">RU</a>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link" href="?lng=en">EN</a>
+        <a class="nav-link" th:href="@{'?lng=en'}">EN</a>
       </li>
       </li>
     </ul>
+    <form class="form-inline my-2 my-lg-0" >
+      <input class="form-control mr-sm-2" type="search">
+      <a  class="btn btn-primary" th:href="@{/employers/add}" role="button">Поиск</a>
+    </form>
   </div>
 </nav>

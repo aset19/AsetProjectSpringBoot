@@ -63,6 +63,10 @@ public class Service implements ServiceLog {
 
 
 
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////////////
     @Override
     public Department addDepartment(Department department) {
@@ -117,7 +121,6 @@ public class Service implements ServiceLog {
     @Override
     public void deletePosition(Position position) {
         positionRepo.delete(position);
-
     }
 
 
