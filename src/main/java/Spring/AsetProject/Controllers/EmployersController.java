@@ -7,16 +7,19 @@ import Spring.AsetProject.Entities.Position;
 import Spring.AsetProject.Entities.Ranks;
 import Spring.AsetProject.Service.ExcelGenerator;
 
+import Spring.AsetProject.Service.PdfGenerator;
 import Spring.AsetProject.Service.ServiceLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -41,15 +44,16 @@ public class EmployersController {
     public String getAllEmployers(Model model){
         List<Employers> employers = serviceLog.getAllEmployers();
         model.addAttribute("employers", employers);
+        return "employers";
+    }
 
-        List<Department> departments = serviceLog.getAllDepartments();
-        model.addAttribute("departments", departments);
 
-        List<Position> positions = serviceLog.getAllPosition();
-        model.addAttribute("positions", positions);
+    //Поиск сотрудников по реквизитам (отдельный запрос в репозиторий)
+    @PostMapping("/search")
+    public String search(@RequestParam(name = "key")String key,Model model){
 
-        List<Ranks> ranks = serviceLog.getAllRanks();
-        model.addAttribute("rank", ranks);
+        List<Employers> employers = serviceLog.searchEmployers(key);
+        model.addAttribute("employers" ,employers);
 
         return "employers";
     }
@@ -209,6 +213,26 @@ public class EmployersController {
                 .headers(headers)
                 .body(new InputStreamResource(in));
     }
+
+
+    @GetMapping(value = "/exportpdf")
+    public ResponseEntity<InputStreamResource> employeeReports() throws IOException {
+
+        List<Employers> allEmployees = serviceLog.getAllEmployers();
+
+        ByteArrayInputStream bis = PdfGenerator.employeesReport(allEmployees);
+
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.add("Content-Disposition", "attachment;filename=employees.pdf");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(bis));
+    }
+
+
 
 
 }

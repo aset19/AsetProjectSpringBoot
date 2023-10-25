@@ -1,10 +1,7 @@
 package Spring.AsetProject.Service;
 
 
-import Spring.AsetProject.Entities.Department;
-import Spring.AsetProject.Entities.Employers;
-import Spring.AsetProject.Entities.Position;
-import Spring.AsetProject.Entities.Ranks;
+import Spring.AsetProject.Entities.*;
 
 import java.util.List;
 
@@ -12,41 +9,43 @@ import java.util.List;
 //абстракция (говорит о поведений)
 public interface ServiceLog {
 
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Employers addEmployer(Employers employers);
+    List<Employers>searchEmployers(String key);
     Employers getEmployer(Long id);
     List<Employers> getAllEmployers();
-
     Employers updateEmployer(Employers employers);
     void deleteEmployer(Employers employers);
 
 
-
-
-
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Department addDepartment(Department department);
     Department getDepartment(Long id);
     List<Department> getAllDepartments();
-
     Department updateDepartment(Department department);
     void deleteDepartment(Department department);
 
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Position addPosition(Position position);
     Position getPosition(Long id);
     List<Position> getAllPosition();
-
     Position updatePosition(Position position);
     void deletePosition(Position position);
 
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Ranks addRanks(Ranks ranks);
     Ranks getRanks(Long id);
     List<Ranks> getAllRanks();
-
     Ranks updateRanks(Ranks ranks);
     void deleteRanks(Ranks ranks);
+
+
+/////////////////////////////SECURITY////////////////////////////////////////////////////////////////////////////////
+
+
+
+
 
 }

@@ -15,8 +15,9 @@ import static java.lang.String.format;
 
 public class ExcelGenerator {
     public static ByteArrayInputStream studentToExcel(List<Employers> students) throws IOException {
-        String[] columns = {"ID", "Personal number", "Surname", "Name", "Second Name", "Born Date", "Contract Start", "Contract Time", "Contract End", "Position", "Ranks", "Department"};
+        String[] columns = {"ID", "Личный номер", "Фамилия", "Имя", "Отчество", "Дата рождения", "Начало контракта", "Срок контракта", "Конец контракта", "Должность", "Звание", "Департамент"};
         try (Workbook workbook = new XSSFWorkbook(); ByteArrayOutputStream out = new ByteArrayOutputStream();) {
+
             //создаем лист
             Sheet sheet = workbook.createSheet("Employers Report");
 

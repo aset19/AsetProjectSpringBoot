@@ -43,7 +43,7 @@ public class DepartmentController {
    }
 
    @GetMapping("/create/{id}")
-    public String create(@PathVariable(name = "id") Long id, Model model){
+    public String create(@PathVariable(name="id") Long id, Model model){
         Department department = serviceLog.getDepartment(id);
         model.addAttribute("department", department);
         return "createDepartment";
@@ -53,7 +53,7 @@ public class DepartmentController {
     public String update(@RequestParam(name = "id") Long id,
                          @RequestParam(name = "department") String departmentName){
          Department department = serviceLog.getDepartment(id);
-         if (departmentName != null && department != null){
+         if (departmentName != null && department != null && !departmentName.equals("")){
              department.setDepartmentName(departmentName);
              serviceLog.updateDepartment(department);
          }

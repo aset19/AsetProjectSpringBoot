@@ -1,22 +1,20 @@
 package Spring.AsetProject.Service;
 
 
-import Spring.AsetProject.Entities.Department;
-import Spring.AsetProject.Entities.Employers;
-import Spring.AsetProject.Entities.Position;
-import Spring.AsetProject.Entities.Ranks;
-import Spring.AsetProject.Repository.DepartmentRepo;
-import Spring.AsetProject.Repository.EmployersRepo;
-import Spring.AsetProject.Repository.PositionRepo;
-import Spring.AsetProject.Repository.RanksRepo;
+import Spring.AsetProject.Entities.*;
+import Spring.AsetProject.Repository.*;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 
 @org.springframework.stereotype.Service
 @Transactional
-public class Service implements ServiceLog {
+public class Service implements ServiceLog, UserDetailsService {
 
     private final EmployersRepo employersRepo;
 
@@ -26,15 +24,26 @@ public class Service implements ServiceLog {
 
     private final RanksRepo ranksRepo;
 
-    public Service(EmployersRepo employersRepo, DepartmentRepo departmentRepo, PositionRepo positionRepo, RanksRepo ranksRepo) {
+    private final UserRepo userRepo;
+
+    private final RoleRepo roleRepo;
+
+
+
+    public Service(EmployersRepo employersRepo, DepartmentRepo departmentRepo,
+                   PositionRepo positionRepo, RanksRepo ranksRepo, UserRepo userRepo, RoleRepo roleRepo) {
         this.employersRepo = employersRepo;
         this.departmentRepo = departmentRepo;
         this.positionRepo = positionRepo;
         this.ranksRepo = ranksRepo;
+        this.userRepo = userRepo;
+        this.roleRepo = roleRepo;
     }
 
 
 
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public Employers addEmployer(Employers employers) {
         return employersRepo.save(employers);
@@ -59,9 +68,8 @@ public class Service implements ServiceLog {
     public void deleteEmployer(Employers employers) {
         employersRepo.delete(employers);
     }
-
-
-
+    @Override
+    public List<Employers> searchEmployers(String key){return employersRepo.findByKey(key);}
 
 
 
@@ -92,7 +100,6 @@ public class Service implements ServiceLog {
     public void deleteDepartment(Department department) {
         departmentRepo.delete(department);
     }
-
 
 
 
@@ -150,4 +157,35 @@ public class Service implements ServiceLog {
     public void deleteRanks(Ranks ranks) {
         ranksRepo.delete(ranks);
     }
+
+
+
+ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //в этом методе мы попытаемся достать юзера по username из нашей базы
+    @Override
+    @Transactional
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = findByUserName(username); //попытаемся достать юзера по пришедшему username (есть ли такой в базе)
+        if (user == null){
+            throw new UsernameNotFoundException(String.format("don't have such user"));
+        }
+        return new org.springframework.security.core.userdetails.User(user.getUserName(),user.getPassword(),
+                Collections.emptyList());
+    }
+
+    public List<Role> roleList(){
+        return roleRepo.findAll();
+    }
+
+    public User findByUserName(String username){
+        return userRepo.findByUserName(username);
+    }
+
+
+    @Transactional
+    public void register(User user){
+        userRepo.save(user);
+    }
+
 }

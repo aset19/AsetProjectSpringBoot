@@ -51,16 +51,17 @@
                     <td th:text = "${employer.ranks!=null?employer.ranks.ranksName:'-----'}"></td>
                     <td th:text = "${employer.department!=null?employer.department.departmentName:'-----'}"></td>
                     <td>
-                        <div>
-                            <img th:src="@{'static/' + ${employer.photo}}" alt="" width="100" height="100"/>
+                        <div class="info-icon" th:href="@{'/employers'}">
+                            <img th:src="@{'C:\Users\1\OneDrive\Рабочий стол\aset\Spring Java\AsetProject\src\main\resources\static' + ${employer.photo}}" th:alt="photo"  width="50" height="50"/>
                         </div>
                     </td>
-                    <td><a class="btn btn-info btn-sm" th:text="#{buttonCreate}" th:href="@{'/employers/create/' + ${employer.id}}" ></a></td>
+                    <td><a class="glyphicon glyphicon-pencil" th:text="#{buttonCreate}" th:href="@{'/employers/create/' + ${employer.id}}" ></a></td>
                 </tr>
                 </tbody>
             </table>
             <a  class="btn btn-primary" th:text="#{buttonAdd}"  th:href="@{/employers/add}" role="button"></a>
             <a  class="btn btn-primary" th:text="#{buttonReport}"  th:href="@{/employers/download/employers.xlsx}" role="button"></a>
+<!--            <a  class="btn btn-primary"   th:href="@{/employers/exportpdf}" role="button">ReportPDF</a>-->
         </div>
     </div>
 </div>
